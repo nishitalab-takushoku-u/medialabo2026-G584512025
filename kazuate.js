@@ -12,11 +12,13 @@ let kaisu = 0;
 // ボタンを押した後の処理をする関数 hantei() の定義
 function hantei() {
   // ここから: 予想回数を1増やして，span#kaisu 要素のテキストを更新
-
+  kaisu =kaisu+1;
+  let p =document.querySelector('span#kaisu');
+  p.textContent =kaisu;
   // ここまで: 予想回数を1増やして，span#kaisu 要素のテキストを更新
   
   // ここから: テキストボックスに指定された数値を yoso に代入する
-  let yoso;
+  let yoso =Number(document.querySelector('input[name ="kaitou"]').value);;
   // ここまで: テキストボックスに指定された数値を yoso に代入する
   
   // ここから: 正解判定する
@@ -26,5 +28,6 @@ function hantei() {
 }
 
 // ここから: ボタンを押した時のイベントハンドラとして hantei を登録
-
+let b = document.querySelector('button#curiku');
+b.addEventListener('click',hantei);
 // ここまで: ボタンを押した時のイベントハンドラとして hantei を登録
