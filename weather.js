@@ -4,7 +4,7 @@ function print(data) {
   console.log("検索結果");
   console.log("都市名："+data.name);
   console.log("ID："+data.id);
-  console.log("天気："+data.weather.description);
+  console.log("天気："+data.weather[0].description);
   console.log("最高気温："+data.main.temp_max);
   console.log("最低気温："+data.main.temp_min);
   console.log("湿度："+data.main.humidity);
@@ -16,7 +16,24 @@ function print(data) {
 
 // 課題5-1 の関数 printDom() はここに記述すること
 function printDom(data) {
-
+  let l =document.createElement('div');
+  l.setAttribute('id', 'result');
+  let u =document.querySelector('body');
+  u.insertAdjacentElement('beforeend',l);
+  l =document.createElement('ul');
+	l.setAttribute('id', 'kekka');
+	u =document.querySelector('div#result');
+	u.insertAdjacentElement('beforeend',l);
+  let t =
+  ["検索結果","都市名："+data.name,"ID："+data.id,"天気："+data.weather[0].description,"最高気温："+data.main.temp_max,
+    "最低気温："+data.main.temp_min,"湿度："+data.main.humidity,"風速："+data.wind.speed,"風向："+data.wind.deg,
+    "緯度："+data.coord.lon,"経度："+data.coord.lat];
+  for (let n =0; n <11 ;n++){
+    let p =document.createElement('li');
+    p.textContent =t[n];
+    u =document.querySelector('ul#kekka');
+    u.insertAdjacentElement('beforeend',p);
+  }
 }
 
 // 課題6-1 のイベントハンドラ登録処理は以下に記述
