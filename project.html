@@ -5,12 +5,14 @@
     <meta charset="utf-8">
     <title>My test page</title>
     <script src="weather.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
   </head>
   <body>
     <h1>世界の天気</h1>
     <h2>以下の地域の天候に関する情報を検索して表示します</h2>
     <p>検索キー：
-     <input type="text" name="kensaku" id="kensaku" size="10"></p>
+     <input type="tel" name="nyuryoku" id="nyuryoku" size="15">
+     <button id="kensaku">検索</button></p>
     <!-- <ul>
         <li>経度: 116.3972</li>
         <li>緯度: 39.9075</li>

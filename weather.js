@@ -15,7 +15,12 @@ function print(data) {
 }
 
 // 課題5-1 の関数 printDom() はここに記述すること
+
 function printDom(data) {
+  let old = document.querySelector('#result');
+  if (old) {
+    old.remove();
+  }
   let l =document.createElement('div');
   l.setAttribute('id', 'result');
   let u =document.querySelector('body');
@@ -24,17 +29,23 @@ function printDom(data) {
 	l.setAttribute('id', 'kekka');
 	u =document.querySelector('div#result');
 	u.insertAdjacentElement('beforeend',l);
+  let pn =document.createElement('p');
+  pn.textContent ='検索結果';
+  u.insertAdjacentElement('afterbegin',pn);
+  
   let t =
-  ["検索結果","都市名："+data.name,"ID："+data.id,"天気："+data.weather[0].description,"最高気温："+data.main.temp_max,
+  ["都市名："+data.name,"ID："+data.id,"天気："+data.weather[0].description,"最高気温："+data.main.temp_max,
     "最低気温："+data.main.temp_min,"湿度："+data.main.humidity,"風速："+data.wind.speed,"風向："+data.wind.deg,
     "緯度："+data.coord.lon,"経度："+data.coord.lat];
-  for (let n =0; n <11 ;n++){
+  for (let n =0; n <t.length ;n++){
     let p =document.createElement('li');
     p.textContent =t[n];
     u =document.querySelector('ul#kekka');
     u.insertAdjacentElement('beforeend',p);
   }
 }
+let b = document.querySelector('button#kensaku');
+b.addEventListener('click',sendRequest);
 
 // 課題6-1 のイベントハンドラ登録処理は以下に記述
 
@@ -43,11 +54,31 @@ function printDom(data) {
 
 // 課題6-1 のイベントハンドラ sendRequest() の定義
 function sendRequest() {
-
+  let i =document.querySelector('input[name ="nyuryoku"]');
+  let number =i.value;
+  let url = 'https://www.nishita-lab.org/web-contents/jsons/openweather/'+number+'.json';
+  axios.get(url)
+        .then(showResult)   // 通信成功
+        .catch(showError)   // 通信失敗
+        .then(finish);      // 通信の最後の処理
 }
 
 // 課題6-1: 通信が成功した時の処理は以下に記述
 function showResult(resp) {
+  // サーバから送られてきたデータを出力
+    let data = resp.data;
+
+    // data が文字列型なら，オブジェクトに変換する
+    if (typeof data === 'string') {
+        data = JSON.parse(data);
+    }
+
+    // data をコンソールに出力
+    console.log(data);
+
+    // data.x を出力
+    console.log(data.x);
+    printDom(data);
 
 }
 
@@ -65,7 +96,7 @@ function finish() {
 // 以下はグルメのデータサンプル
 // 注意: 第5回までは以下を変更しないこと！
 // 注意2: 課題6-1 で以下をすべて削除すること
-let data = {
+/*let data = {
   "coord": {
     "lon": 116.3972,
     "lat": 39.9075
@@ -110,5 +141,5 @@ let data = {
   "id": 1816670,
   "name": "北京市",
   "cod": 200
-};
+};*/
 
